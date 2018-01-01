@@ -1,0 +1,65 @@
+{
+  "name": "@cycle/http",
+  "version": "14.8.0",
+  "description": "A Cycle.js Driver for making HTTP requests",
+  "main": "lib/cjs/index.js",
+  "module": "lib/es6/index.js",
+  "typings": "lib/cjs/index.d.ts",
+  "license": "MIT",
+  "repository": "https://github.com/cyclejs/cyclejs/tree/master/http",
+  "dependencies": {
+    "@cycle/run": "*",
+    "@types/superagent": "3.5.6",
+    "superagent": "3.7.0",
+    "xstream": "*"
+  },
+  "devDependencies": {
+    "@cycle/run": "4.0.0-rc.4",
+    "@cycle/rxjs-run": "8.0.0-rc.4",
+    "@cycle/isolate": "3.2",
+    "@types/body-parser": "1.16.x",
+    "@types/cookie-parser": "1.4.x",
+    "@types/express": "4.0.x",
+    "@types/mocha": "2.2.x",
+    "@types/node": "7.0.x",
+    "body-parser": "1.18.x",
+    "cookie-parser": "1.4.3",
+    "express": "4.16.2",
+    "rxjs": "5.5.x",
+    "saucie": "3.3.0",
+    "xstream": "11.x"
+  },
+  "browserify-shim": {
+    "xstream": "global:xstream"
+  },
+  "scripts": {
+    "test-node": "../node_modules/.bin/mocha test/node.ts --require ts-node/register --exit",
+    "pretest-browser": "../node_modules/.bin/tsc -p ./test/browser/ && npm run start-test-support-server",
+    "test-browser": "../node_modules/.bin/testem ci -l Chrome,Firefox",
+    "posttest-browser": "npm run stop-test-support-server",
+    "pretest-browser-ci": "npm run pretest-browser",
+    "test-browser-ci": "../node_modules/.bin/testem ci",
+    "posttest-browser-ci": "npm run posttest-browser",
+    "start-test-support-server": "PORT=8070 ../node_modules/.bin/ts-node test/support/run-server.ts & echo $! > test-support-server.pid",
+    "stop-test-support-server": "if ps -p $(cat test-support-server.pid)> /dev/null; then kill -KILL $(cat test-support-server.pid); fi && rm test-support-server.pid",
+    "test-ci": "npm run test-node && npm run test-browser-ci",
+    "test": "npm run test-node && npm run test-browser",
+    "browserify": "../node_modules/.bin/browserify lib/cjs/index.js --global-transform=browserify-shim --standalone CycleHTTPDriver --exclude xstream --outfile dist/cycle-http-driver.js",
+    "minify": "node ../.scripts/minify.js dist/cycle-http-driver.js dist/cycle-http-driver.min.js"
+  },
+  "homepage": "https://cycle.js.org",
+  "bugs": "https://github.com/cyclejs/cyclejs/issues",
+  "contributors": [
+    {
+      "name": "Andre Staltz",
+      "email": "andre@staltz.com"
+    },
+    {
+      "name": "Tylor Steinberger",
+      "email": "tlsteinberger167@gmail.com"
+    }
+  ],
+  "publishConfig": {
+    "access": "public"
+  }
+}

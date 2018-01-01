@@ -1,0 +1,53 @@
+{
+  "name": "@cycle/isolate",
+  "version": "3.2.0",
+  "description": "A utility function to make scoped dataflow components in Cycle.js",
+  "license": "MIT",
+  "homepage": "https://cycle.js.org",
+  "bugs": "https://github.com/cyclejs/cyclejs/issues",
+  "contributors": [
+    {
+      "name": "Andre Staltz",
+      "email": "andre@staltz.com"
+    },
+    {
+      "name": "Tylor Steinberger",
+      "email": "tlsteinberger167@gmail.com"
+    }
+  ],
+  "repository": "https://github.com/cyclejs/cyclejs/tree/master/isolate",
+  "keywords": [
+    "reactive",
+    "framework",
+    "rxjs",
+    "rx",
+    "unidirectional",
+    "mvi",
+    "dataflow",
+    "virtual-dom"
+  ],
+  "main": "lib/cjs/index.js",
+  "module": "lib/es6/index.js",
+  "typings": "lib/cjs/index.d.ts",
+  "types": "lib/cjs/index.d.ts",
+  "dependencies": {},
+  "devDependencies": {
+    "@types/mocha": "2.2.x",
+    "@types/node": "7.0.x",
+    "@types/sinon": "1.16.x",
+    "rxjs": "5.4.2"
+  },
+  "engines": {
+    "node": ">=0.10.0"
+  },
+  "scripts": {
+    "mocha": "../node_modules/.bin/mocha test/*.ts --require ts-node/register --exit",
+    "test": "npm run mocha",
+    "test-ci": "npm run test",
+    "browserify": "../node_modules/.bin/browserify lib/cjs/index.js --standalone CycleIsolate --outfile dist/cycle-isolate.js",
+    "minify": "node ../.scripts/minify.js dist/cycle-isolate.js dist/cycle-isolate.min.js"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

@@ -1,0 +1,86 @@
+{
+  "name": "@cycle/dom",
+  "version": "20.1.0",
+  "description": "The standard DOM Driver for Cycle.js, based on Snabbdom",
+  "license": "MIT",
+  "homepage": "https://cycle.js.org",
+  "bugs": "https://github.com/cyclejs/cyclejs/issues",
+  "repository": "https://github.com/cyclejs/cyclejs/tree/master/dom",
+  "contributors": [
+    {
+      "name": "Andre Staltz",
+      "email": "andre@staltz.com"
+    },
+    {
+      "name": "Tylor Steinberger",
+      "email": "tlsteinberger167@gmail.com"
+    },
+    {
+      "name": "Frederik Krautwald",
+      "email": "fkrautwald@gmail.com"
+    }
+  ],
+  "keywords": [
+    "reactive",
+    "framework",
+    "rxjs",
+    "rx",
+    "unidirectional",
+    "mvi",
+    "virtual-dom"
+  ],
+  "main": "lib/cjs/index.js",
+  "module": "lib/es6/index.js",
+  "typings": "lib/cjs/index.d.ts",
+  "types": "lib/cjs/index.d.ts",
+  "dependencies": {
+    "@cycle/run": "*",
+    "es6-map": "^0.1.4",
+    "snabbdom": "0.7.0",
+    "snabbdom-selector": "2.0.1",
+    "xstream": "*"
+  },
+  "devDependencies": {
+    "@cycle/run": "4.0.0",
+    "@cycle/isolate": "3.2",
+    "@cycle/rxjs-run": "8.0.0",
+    "@types/mocha": "^2.2.33",
+    "@types/node": "^7.0.4",
+    "@types/sinon": "^1.16.32",
+    "mutation-observer": "1.0.3",
+    "rxjs": "5.5.x",
+    "saucie": "3.3.0",
+    "simulant": "^0.2.2",
+    "snabbdom-jsx": "^0.3.0",
+    "xstream": "11.x"
+  },
+  "engines": {
+    "node": ">=0.10.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "browserify-shim": {
+    "xstream": "global:xstream"
+  },
+  "scripts": {
+    "test-node": "../node_modules/.bin/mocha test/node/*.ts --require ts-node/register --exit",
+    "pretest-browser": "../node_modules/.bin/tsc -p ./test/browser/ && ../node_modules/.bin/browserify test/browser/lib/index.js -o test/browser/page/tests-bundle.js",
+    "test-browser": "../node_modules/.bin/testem ci -l Firefox,Chrome",
+    "posttest-browser": "rm test/browser/page/tests-bundle.js",
+    "pretest-browser-ci": "npm run pretest-browser",
+    "test-browser-ci": "../node_modules/.bin/testem ci",
+    "posttest-browser-ci": "npm run posttest-browser",
+    "pretest-browser-wait": "npm run pretest-browser",
+    "test-browser-wait": "../node_modules/.bin/testem -l Chrome",
+    "posttest-browser-wait": "npm run posttest-browser",
+    "pretest-browser-perf": "../node_modules/.bin/browserify test/browser/perf/index.js -t babelify -o test/browser/perf/tests-bundle.js",
+    "test-browser-perf": "../node_modules/.bin/testem -f test/browser/perf/.testem-perf.json",
+    "posttest-browser-perf": "rm test/browser/perf/tests-bundle.js",
+    "test": "npm run test-node && npm run test-browser",
+    "test-ci": "npm run test-node && npm run test-browser-ci",
+    "test-wait": "npm run test-node && npm run test-browser-wait",
+    "browserify": "../node_modules/.bin/browserify lib/cjs/index.js --global-transform=browserify-shim --standalone CycleDOM --exclude xstream --outfile dist/cycle-dom.js",
+    "minify": "node ../.scripts/minify.js dist/cycle-dom.js dist/cycle-dom.min.js"
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "extends": "../tsconfig.common.json",
+  "compilerOptions": {
+    "lib": [
+      "dom",
+      "es2015"
+    ],
+    "types": [
+      "mocha",
+      "node"
+    ]
+  },
+  "files": [
+    "src/index.ts"
+  ]
+}
