@@ -20,7 +20,7 @@
     "indentSize": 2,
     "tabSize": 2
   },
-   "files": [
-     "src/index.tsx"
-   ]
+  "files": [
+    "src/index.ts"
+  ]
 }

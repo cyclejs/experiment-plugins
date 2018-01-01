@@ -1,5 +1,5 @@
 {
-  "name": "@cycle/run",
+  "name": "@cycle/experiment-run",
   "version": "4.1.0",
   "description": "The Cycle.js run() function to use with xstream",
   "license": "MIT",
@@ -29,9 +29,6 @@
   "module": "lib/es6/index.js",
   "typings": "lib/cjs/index.d.ts",
   "types": "lib/cjs/index.d.ts",
-  "dependencies": {
-    "xstream": "10.x || 11.x"
-  },
   "devDependencies": {
     "@types/es6-promise": "0.0.x",
     "@types/mocha": "2.2.x",
@@ -46,12 +43,14 @@
     "xstream": "global:xstream"
   },
   "scripts": {
-    "mocha": "../node_modules/.bin/mocha test/*.ts --require ts-node/register --exit",
+    "mocha":
+      "../node_modules/.bin/mocha test/*.ts --require ts-node/register --exit",
     "test": "npm run mocha",
     "test-ci": "npm run test",
-    "browserify": "../node_modules/.bin/browserify lib/cjs/index.js --global-transform=browserify-shim --standalone Cycle --exclude xstream -o dist/cycle-run.js",
-    "minify": "node ../.scripts/minify.js dist/cycle-run.js dist/cycle-run.min.js",
-    "postlib": "cp lib/cjs/adapt.* lib/"
+    "browserify":
+      "../node_modules/.bin/browserify lib/cjs/index.js --global-transform=browserify-shim --standalone Cycle --exclude xstream -o dist/cycle-run.js",
+    "minify":
+      "node ../.scripts/minify.js dist/cycle-run.js dist/cycle-run.min.js"
   },
   "publishConfig": {
     "access": "public"

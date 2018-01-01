@@ -1,9 +1,7 @@
 {
   "extends": "../tsconfig.common.json",
-  "compilerOptions": {
-  },
+  "compilerOptions": {},
   "files": [
-    "src/index.ts",
-    "src/adapt.ts"
+    "src/index.ts"
   ]
 }

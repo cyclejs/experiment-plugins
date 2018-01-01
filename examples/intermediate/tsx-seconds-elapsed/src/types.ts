@@ -16,7 +16,6 @@ export type Plugins<So extends Sources, Si extends Sinks> = {
   [P in keyof (So & Si)]: Plugin<Si[P], So[P]>
 };
 
-export type Lol = Partial<SinkProxy>;
 export interface Adapter<So, Si, Ko extends keyof So, Ki extends keyof Si> {
   (main: (so: So) => Si, ch?: Ko & Ki): (so: Lower<So, Ko>) => Lower<Si, Ki>;
 }
