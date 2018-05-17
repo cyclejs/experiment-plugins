@@ -1,16 +1,15 @@
+import { Callbag } from 'callbag';
 import microtask from './microtask';
 import {
   CycleProgram,
-  Stop,
   Plugins,
   SinkProxies,
   Sources,
-  Push,
-  Straw,
   Sinks,
-  SinkProxy,
   Adapter,
 } from './types';
+// import makeSubject = require('callbag-subject');
+const makeSubject = require('callbag-subject');
 
 export {
   Sources,
@@ -18,7 +17,6 @@ export {
   SinkProxies,
   Driver,
   Plugins,
-  Stop,
   CycleProgram,
 } from './types';
 
@@ -30,11 +28,7 @@ function makeSinkProxies<So extends Sources, Si extends Sinks>(
   const sinkProxies = {} as SinkProxies<Si>;
   for (const name in plugins) {
     if (plugins.hasOwnProperty(name)) {
-      sinkProxies[name] = {
-        straw: function straw(push: Push<any>): void {
-          this.push = push;
-        },
-      } as SinkProxy;
+      sinkProxies[name] = makeSubject();
     }
   }
   return sinkProxies;
@@ -48,7 +42,7 @@ function callDrivers<So extends Sources, Si extends Sinks>(
   for (const name in plugins) {
     if (plugins.hasOwnProperty(name)) {
       const driver = plugins[name][0];
-      const sinkStraw = sinkProxies[name].straw.bind(sinkProxies[name]);
+      const sinkStraw = sinkProxies[name];
       sources[name] = driver(sinkStraw, name);
     }
   }
